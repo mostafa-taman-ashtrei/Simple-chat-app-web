@@ -1,12 +1,12 @@
-import NavBar from "./components/Navbar/NavBar";
-import LoginPage from "./pages/LoginPage";
+import { BrowserRouter } from 'react-router-dom';
+import Router from './routes';
 
 const App = () => {
   return (
-    <>
-      <NavBar />
-      <LoginPage />
-    </>
+    <BrowserRouter>
+      <Router />
+      {/* <LoginPage /> */}
+    </BrowserRouter>
   );
 };
 

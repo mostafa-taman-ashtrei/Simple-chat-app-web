@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
+import { AuthProvider } from './contexts/AuthContext';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <App />
+      <AuthProvider >
+        <App />
+      </AuthProvider>
     </HelmetProvider>
   </React.StrictMode>
 );

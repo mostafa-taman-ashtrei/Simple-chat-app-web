@@ -3,10 +3,14 @@ import { Grid, Paper, Box, Typography, Divider, Link } from '@mui/material';
 import PageBox from "../components/general/PageBox";
 import SignupForm from "../components/auth/SignupForm";
 import SigninForm from "../components/auth/SigninForm";
-
+import { Navigate } from 'react-router-dom';
+import useAuth from "../hooks/useAuth";
 
 const LoginPage = () => {
-    const [mode, setMode] = useState('Sign Up');
+    const { isAuth } = useAuth();
+    const [mode, setMode] = useState('Sign In');
+
+    if (isAuth) return <Navigate to="/" />;
 
     return <PageBox title="Sign In">
         <Grid container>
