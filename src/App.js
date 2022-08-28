@@ -1,11 +1,11 @@
 import NavBar from "./components/Navbar/NavBar";
-import Signup from "./components/auth/Signup";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
   return (
     <>
       <NavBar />
-      <Signup />
+      <LoginPage />
     </>
   );
 };
