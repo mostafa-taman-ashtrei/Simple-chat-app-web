@@ -26,7 +26,7 @@ const SigninForm = () => {
             try {
                 const res = await axios.post('signin/', { email: values.email, password: values.password });
                 const { status } = res;
-                console.log(status, res);
+
                 if (status === 200) {
                     await checkAuth();
                     return <Navigate to="/dashboard" />

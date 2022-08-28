@@ -18,8 +18,6 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
 
-    console.log({ isAuth, user, loading });
-
     const checkAuth = async () => {
         try {
             const { data, status } = await fetchAuthData();

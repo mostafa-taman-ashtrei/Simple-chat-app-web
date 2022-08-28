@@ -24,7 +24,7 @@ const SignupForm = () => {
       try {
         const res = await axios.post('signup/', { email: values.email, name: values.name, password: values.password });
         const { status } = res;
-        console.log(status, res);
+
         if (status === 200) return setPopUpData({ show: true, type: 'success', text: 'You have successfully created an account.' });
       } catch (error) {
         const errorMessage = error.response.data.error
