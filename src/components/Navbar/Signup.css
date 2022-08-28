@@ -1,0 +1,11 @@
+.boxStyle {
+    width: 20% !important;
+}
+
+#signupContainer {
+    box-sizing: border-box;
+    border: 2px solid gray;
+    margin-top: 10px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
