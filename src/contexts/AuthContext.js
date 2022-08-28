@@ -46,6 +46,7 @@ const AuthProvider = ({ children }) => {
             isAuth,
             setUser,
             setIsAuth,
+            checkAuth
         }}>
             {
                 loading ?

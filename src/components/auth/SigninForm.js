@@ -6,8 +6,11 @@ import { Stack, TextField, IconButton, InputAdornment, Alert, AlertTitle } from 
 import LoadingButton from '@mui/lab/LoadingButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Navigate } from 'react-router-dom';
+import useAuth from "../../hooks/useAuth";
 
 const SigninForm = () => {
+    const { checkAuth } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [popUpData, setPopUpData] = useState({ show: false, text: '', type: 'success' });
 
@@ -24,7 +27,10 @@ const SigninForm = () => {
                 const res = await axios.post('signin/', { email: values.email, password: values.password });
                 const { status } = res;
                 console.log(status, res);
-                if (status === 200) return setPopUpData({ show: true, type: 'success', text: 'You have successfully created an account.' });
+                if (status === 200) {
+                    await checkAuth();
+                    return <Navigate to="/dashboard" />
+                }
             } catch (error) {
                 const errorMessage = error.response.data.error
                 console.log(error);

@@ -20,7 +20,7 @@ const appRoutes = [
     },
     {
         path: '/',
-        element: <AuthGuard><h3>Welcome</h3></AuthGuard>
+        element: <AuthGuard><MainLayout /></AuthGuard>,
     },
     {
         path: '/login',
