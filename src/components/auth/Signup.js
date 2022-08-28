@@ -22,11 +22,17 @@ const Signup = () => {
     initialValues: { name: '', email: '', password: '' },
     validationSchema: RegisterSchema,
     onSubmit: async (values) => {
-      const res = await axios.post('http://localhost:8080/signin/', { email: values.email, password: values.password });
-      const { status } = res;
-      console.log(status, res);
-      if (status === 200) return setPopUpData({ show: true, type: 'success', text: 'You have successfully created an account.' });
-      return setPopUpData({ show: true, type: 'error', text: 'Sign up faild.' });
+      try {
+        const res = await axios.post('signup/', { email: values.email, name: values.name, password: values.password });
+        const { status } = res;
+        console.log(status, res);
+        if (status === 200) return setPopUpData({ show: true, type: 'success', text: 'You have successfully created an account.' });
+      } catch (error) {
+        const errorMessage = error.response.data.error
+        console.log(error);
+        return setPopUpData({ show: true, type: 'error', text: errorMessage });
+      }
+
     }
   });
 
@@ -34,20 +40,19 @@ const Signup = () => {
 
   return (
     <PageBox title="Sign In">
-      <Grid
-        container
-        sx={{
-          height: '100vh',
-          backgroundImage: 'url(https://source.unsplash.com/random)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <Grid item xs={false} md={8} sm={4} />
+      <Grid container>
+        <Grid item xs={false} md={8} sm={4}
+          sx={{
+            height: '100vh',
+            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
 
-        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={1} sx={{}}>
+        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={1}>
           <Box
             sx={{
               my: 1,
@@ -61,7 +66,7 @@ const Signup = () => {
             </Typography>
 
             {
-              popUpData.show && <Alert severity={popUpData.type}>
+              popUpData.show && <Alert severity={popUpData.type} sx={{ m: 2 }}>
                 <AlertTitle>{popUpData.type}</AlertTitle>
                 {popUpData.text}
               </Alert>
@@ -107,8 +112,8 @@ const Signup = () => {
                         </InputAdornment>
                       )
                     }}
-                    error={Boolean(errors.password)}
-                    helperText={errors.password}
+                    error={Boolean(touched.password && errors.password)}
+                    helperText={touched.password && errors.password}
                   />
 
                   <LoadingButton fullWidth size="medium" type="submit" sx={{ boxShadow: 'none' }} variant="contained" loading={isSubmitting}>
